@@ -9,23 +9,25 @@ router = Router()
 
 @router.message(CommandStart())
 async def start_command(message: Message):
-    await message.answer(f"""Hello, I am your bot!
-                         {message.from_user.id}
-                         {message.from_user.first_name}""", 
-                         reply_markup=await kb.inline_cars())
+    await message.answer(f"""Мен сізге қалай көмектесе алатынымды мәзірден таңдаңыз
 
-@router.message(Command("help"))
-async def help_command(message: Message):
-    await message.answer("This is a help message. How can I assist you?")
+Выберите из меню, чем я могу Вам помочь""")
+    await message.answer(f"""Интерфейстің тілін таңдауыңызды сұраймыз
 
-@router.message(F.text == "Как дела?")
-async def how_are_you(message: Message):
-    await message.answer("OK")
+Просим Вас выбрать язык интерфейса""", 
+                         reply_markup=kb.settings)
 
-@router.message(F.photo)
-async def photo_handler(message: Message):
-    logging.info(f"Photo received in chat {message.chat.id}")
-    await message.answer_photo(
-        photo=message.photo[-1].file_id,
-        caption="Look at this fool ahahahaha"
-    )
+@router.callback_query(F.data == "lang_ru")
+async def lang_ru(callback: Message):
+    await callback.message.answer("Русский",
+                                  reply_markup=kb.russian_menu)
+
+@router.callback_query(F.data == "lang_kz")
+async def lang_kz(callback: Message):
+    await callback.message.answer("Қазақша",
+                                    reply_markup=kb.russian_menu)
+
+
+# @router.message(F.text)
+# async def find_suitable_answer(message: Message):
+#     await )

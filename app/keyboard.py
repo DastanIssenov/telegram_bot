@@ -3,29 +3,37 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
 
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder 
 
-main = ReplyKeyboardMarkup(keyboard = [
+russian_menu = ReplyKeyboardMarkup(keyboard = [
     [
-        KeyboardButton(text="Кнопка 1"),
-        KeyboardButton(text="Кнопка 2"),
-        KeyboardButton(text="Кнопка 3")
+        KeyboardButton(text="💳 Покупка и возврат билетов")
     ],
     [
-        KeyboardButton(text="Кнопка 4"),
-        KeyboardButton(text="Кнопка 5")
+        KeyboardButton(text="📕 Льготы и правила проезда")
+    ],
+    [
+        KeyboardButton(text="🫶 Промоакции")
+    ],
+    [
+        KeyboardButton(text="📋 Оставить обращение")
+    ],
+    [
+        KeyboardButton(text="🔍 Проверка статуса заявки")
+    ],
+    [
+        KeyboardButton(text="🌐 Сменить язык")
     ]
+
 ],one_time_keyboard = True)
 
 settings = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text = "Youtube",
-    url = "https://www.youtube.com/watch?v=qRyshRUA0xM&list=PLV0FNhq3XMOJ31X9eBWLIZJ4OVjBwb-KM&index=4")],
-    [InlineKeyboardButton(text = "Google",
-    url = "https://www.youtube.com/watch?v=qRyshRUA0xM&list=PLV0FNhq3XMOJ31X9eBWLIZJ4OVjBwb-KM&index=4")]
+    [InlineKeyboardButton(text = "Русский", callback_data= "lang_ru")],
+    [InlineKeyboardButton(text = "Қазақша", callback_data= "lang_kz")]
     ]
 )
 
 async def inline_cars():
     keyboard = ReplyKeyboardBuilder()
 
-    for car in ["BMW", "Mercedes", "Audi", "Lada"]:
+    for car in ["Русский", "Қазақша"]:
         keyboard.add(KeyboardButton(text=car))
     return keyboard.adjust(2).as_markup()
